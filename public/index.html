@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Safari Frenzy — Capture-les tous !</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%237bc950'/%3E%3Crect x='3' y='3' width='10' height='10' fill='%23e63946'/%3E%3Crect x='3' y='7' width='10' height='2' fill='%231a1a2e'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23fafffa'/%3E%3Crect x='7' y='7' width='2' height='2' fill='%231a1a2e'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <main class="app">
+    <header class="hud">
+      <div class="hud-block">
+        <span class="hud-label">SCORE</span>
+        <span class="hud-value" id="score-value">00000</span>
+      </div>
+      <div class="hud-block timer">
+        <span class="hud-label">TEMPS</span>
+        <span class="hud-value" id="timer-value">60</span>
+      </div>
+      <div class="hud-block">
+        <span class="hud-label">COMBO</span>
+        <span class="hud-value">
+          <span id="combo-value">0</span>
+          <span class="multiplier" id="multiplier-value" data-tier="1">×1</span>
+        </span>
+      </div>
+    </header>
+
+    <section class="game-area">
+      <div class="canvas-frame">
+        <canvas id="game-canvas" width="480" height="480"></canvas>
+        <div id="overlay" class="overlay">
+          <div id="overlay-content"></div>
+        </div>
+      </div>
+
+      <aside class="leaderboard">
+        <h3>🏆 TOP 5</h3>
+        <ol id="leaderboard-list">
+          <li class="empty">Chargement…</li>
+        </ol>
+        <p class="hint-side">Stocké via l'API Node</p>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <span>Safari Frenzy v1.0</span>
+      <span>HTML · CSS · JS · Node.js</span>
+    </footer>
+  </main>
+
+  <script src="/js/sprites.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/game.js"></script>
+</body>
+</html>
