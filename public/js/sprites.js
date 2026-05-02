@@ -143,6 +143,96 @@ const MEWZY = [
   '...kkk..kkk...',
 ];
 
+// TIMECLOCK — power-up: +5 seconds (rare drop)
+const TIMECLOCK = [
+  '..............',
+  '......kk......',
+  '....kkyyyykk..',
+  '...kyyWWWWyk..',
+  '..kyWWkWkWWyk.',
+  '..kyWWWkWWWyk.',
+  '..kyWkrrrkWyk.',
+  '..kyWWrkWWWyk.',
+  '..kyWWWkWWWyk.',
+  '..kyWWWkkWWyk.',
+  '...kyyWWWWyk..',
+  '....kkyyyykk..',
+  '......kk......',
+  '..............',
+];
+
+// STAR — power-up: freeze creatures 3s (rare drop)
+const STAR = [
+  '..............',
+  '......kk......',
+  '......yy......',
+  '.....kyyk.....',
+  '.....kyyk.....',
+  '.kkkkkyykkkkk.',
+  '.kyyyyyyyyyyk.',
+  '.kyyyywwyyyyk.',
+  '..kyyywwyyyk..',
+  '...kyyyyyyk...',
+  '..kyykkkkyyk..',
+  '.kykk....kkyk.',
+  '.kk........kk.',
+  '..............',
+];
+
+// MASTERBALL — power-up: next click is a guaranteed AOE capture (legendary)
+const MASTERBALL = [
+  '..............',
+  '....kkkkkk....',
+  '...kuuuuuuk...',
+  '..kuuuuuuuuk..',
+  '..kuyuuuuyuk..',
+  '.kuuuyuuyuuuk.',
+  '.kkkkkkkkkkkk.',
+  '.kwwwwkkwwwwk.',
+  '.kwwwkwwkwwwk.',
+  '..kwwkwwkwwk..',
+  '..kwwwwwwwwk..',
+  '...kwwwwwwk...',
+  '....kkkkkk....',
+  '..............',
+];
+
+// MAGNET — power-up: auto-aim 4s
+const MAGNET = [
+  '..............',
+  '..............',
+  '.kkkk....kkkk.',
+  '.krrk....krrk.',
+  '.krrk....krrk.',
+  '.krrk....krrk.',
+  '.krrk....krrk.',
+  '.krrkkkkkkrrk.',
+  '.krrwwwwwwrrk.',
+  '.krrwwwwwwrrk.',
+  '.kkkrrrrrrkkk.',
+  '...kkkkkkkk...',
+  '..............',
+  '..............',
+];
+
+// REPEL_GUST — power-up: clears all BOOMb on screen
+const REPEL_GUST = [
+  '..............',
+  '......kk......',
+  '....kkccckk...',
+  '...kcccccccck.',
+  '..kccwwwwccck.',
+  '.kcwwwwwwwwwck',
+  '.kccwwwwwwccck',
+  '.kcccwwwwwcck.',
+  '..kccccwccck..',
+  '..kkccccckk...',
+  '...kkccckk....',
+  '....kkkkk.....',
+  '..............',
+  '..............',
+];
+
 // BOOMb — explosive trap (DANGER / -20pts)
 const BOOMB = [
   '..............',
@@ -214,6 +304,16 @@ const CREATURES = [
   { id: 'boomb',    sprite: BOOMB,    name: 'BOOMb',    points: -20, rarity: 'danger',    weight: 18, lifeMs: 1200 },
 ];
 
+/* ============ Power-up items (rare random drops) ============ */
+
+const ITEMS = [
+  { id: 'clock',     sprite: TIMECLOCK,  name: 'Time+5',     effect: 'time_bonus', weight: 5, lifeMs: 2200, rarity: 'item' },
+  { id: 'star',      sprite: STAR,       name: 'Freeze',     effect: 'freeze',     weight: 4, lifeMs: 2200, rarity: 'item' },
+  { id: 'masterball',sprite: MASTERBALL, name: 'Master AOE', effect: 'master_aoe', weight: 2, lifeMs: 2000, rarity: 'item' },
+  { id: 'magnet',    sprite: MAGNET,     name: 'Magnet',     effect: 'magnet',     weight: 3, lifeMs: 2000, rarity: 'item' },
+  { id: 'repel',     sprite: REPEL_GUST, name: 'Repel',      effect: 'repel',      weight: 3, lifeMs: 2000, rarity: 'item' },
+];
+
 /* ============ Renderer ============ */
 
 /**
@@ -258,6 +358,7 @@ function drawGrassPattern(ctx, x, y, w, h, pixelSize) {
 window.SafariSprites = {
   PALETTE,
   CREATURES,
+  ITEMS,
   POKEBALL,
   drawSprite,
   drawGrassPattern,

@@ -1,16 +1,21 @@
 {
   "name": "safari-frenzy",
-  "version": "1.0.0",
-  "description": "Mini browser game pixel art Pokemon-style avec API de scores",
+  "version": "2.0.0",
+  "description": "Mini browser game pixel art Pokemon-style avec API de scores, niveaux, modes et power-ups",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "test": "node tests/run.js"
   },
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.0.0"
   },
   "engines": {
     "node": ">=18"
   }
 }
+

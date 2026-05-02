@@ -32,12 +32,24 @@
       </div>
     </header>
 
+    <div class="level-bar">
+      <div class="level-bar-info">
+        <span class="lvl-tag"><span id="level-label">NIVEAU</span> <span id="level-num">1</span></span>
+        <span class="lvl-goal">Objectif: <span id="goal-current">0</span> / <span id="goal-target">200</span></span>
+      </div>
+      <div class="level-bar-track">
+        <div class="level-bar-fill" id="level-bar-fill"></div>
+      </div>
+    </div>
+
     <section class="game-area">
       <div class="canvas-frame">
         <canvas id="game-canvas" width="480" height="480"></canvas>
+        <div class="canvas-tint" id="canvas-tint"></div>
         <div id="overlay" class="overlay">
           <div id="overlay-content"></div>
         </div>
+        <div class="toast-stack" id="toast-stack"></div>
       </div>
 
       <aside class="leaderboard">
@@ -50,11 +62,15 @@
     </section>
 
     <footer class="footer">
-      <span>Safari Frenzy v1.0</span>
+      <span>Safari Frenzy v3.0</span>
       <span>HTML · CSS · JS · Node.js</span>
     </footer>
   </main>
 
+  <!-- Module load order matters: config → store → audio → sprites → api → game -->
+  <script src="/js/config.js"></script>
+  <script src="/js/store.js"></script>
+  <script src="/js/audio.js"></script>
   <script src="/js/sprites.js"></script>
   <script src="/js/api.js"></script>
   <script src="/js/game.js"></script>

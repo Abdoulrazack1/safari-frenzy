@@ -1,135 +1,128 @@
-# 🌿 Safari Frenzy
+# Safari Frenzy 🌿
 
-Mini browser game pixel art **Pokémon-style** avec API de scores en Node.js.
+Mini browser game pixel art type Game Boy : capture les créatures à coups de Pokéball, évite les BOOMb, monte ton combo, débloque le pokédex.
 
-> **Stack** : HTML · CSS (vanilla) · JavaScript (vanilla, Canvas API) · Node.js + Express
+**Stack** : HTML/CSS/JS vanilla + Node.js/Express + SQLite (avec fallback JSON). Zéro framework, zéro bundler, zéro dépendance dans le frontend.
+
+```
+                                   ┌────────────┐
+                                   │  +50  ×3   │
+                                   └────────────┘
+        .  ✨   .                      ↑
+    ┌─────────────────┐              ✦
+    │  ▓▓░░  ▓▓░░     │            ╭──╮
+    │ ▓░░░░ ▓░░░░     │            │MEW│
+    │  ▓▓▓▓  ▓▓▓▓     │            │ZY │
+    │                 │            ╰──╯
+    │   ●           ◇ │
+    │  PIDGY      MASTER
+    │              BALL
+    └─────────────────┘
+       L4 ⏱ 32  COMBO ×3
+```
 
 ---
 
-## 🎮 Le concept
-
-Whack-a-mole revisité dans l'esthétique Game Boy. 60 secondes pour capturer un maximum de créatures dans les hautes herbes, tout en évitant les **BOOMb** explosifs.
-
-| Type        | Points | Détail                             |
-| ----------- | ------ | ---------------------------------- |
-| Communes    | +10    | Wormy, Pidgy, Rattz                |
-| Rares       | +25    | Sparky, Furrball                   |
-| Légendaires | +50    | Mewzy (apparition flash)           |
-| **BOOMb**   | **−20** | **piège — combo perdu + screen-shake** |
-
-**Multiplicateur de combo** : enchaîne 3 captures pour ×2, 6 pour ×3, jusqu'à **×5**. Une seule erreur (BOOMb, miss, créature qui s'enfuit) → combo réinitialisé.
-
-C'est cette mécanique combo + Voltorb qui crée la tension : le joueur veut prendre des risques pour le multiplicateur, mais chaque clic peut tout faire s'écrouler.
-
----
-
-## 🚀 Lancer le projet
+## Démarrage rapide
 
 ```bash
-# Depuis la racine du projet
 npm install
 npm start
 ```
 
-Puis ouvre **http://localhost:3000**.
+Va sur `http://localhost:3000`.
 
-Le serveur Node.js sert à la fois le frontend statique (depuis `/public`) et l'API REST des scores.
-
-### Mode dev (rechargement auto, Node 18+)
-
+Pour développer avec auto-reload :
 ```bash
 npm run dev
 ```
 
----
+Pour les tests d'intégration :
+```bash
+npm test
+```
 
-## 🗂 Structure
+## Modes de jeu
+
+| Mode      | Description                                                    |
+| --------- | -------------------------------------------------------------- |
+| **Classique** | 8 niveaux + procédural infini, objectifs, bonus rounds         |
+| **Endless**   | 3 vies, pas de timer, pure score chase                         |
+| **Hardcore**  | One-shot — un seul miss ou BOOMb = game over                   |
+| **Chasse**    | 90s pour traquer une cible spécifique. Mauvaise capture = -20  |
+
+## Power-ups (drops 5%)
+
+- ⏱ **Time +5** — bouée de sauvetage
+- ❄ **Freeze** — gèle toutes les créatures 3s
+- ⚪ **Master AOE** — prochain clic capture toute l'aire
+- 🧲 **Magnet** — auto-aim 4s (BOOMb exclus, bien sûr)
+- 💨 **Repel** — efface tous les BOOMb à l'écran
+
+## Features
+
+- 🎮 **4 modes** + 8 niveaux + génération procédurale infinie
+- ✨ **Bonus rounds** tous les 3 niveaux (légendaires uniquement, ×2 points)
+- 🎵 **Audio chiptune procédural** (Web Audio API, zéro fichier audio)
+- 📖 **Pokédex persistant** (localStorage)
+- 🏆 **13 achievements** avec toasts
+- 📊 **Leaderboards par mode** (SQLite côté serveur)
+- ☁️ **Sync cloud optionnelle** des profils
+- 🔒 **Anti-cheat** : tokens HMAC + plausibility check
+- ♿ **Mode mouvement réduit** pour accessibilité
+
+## API
+
+| Endpoint                    | Méthode | Rôle                                  |
+| --------------------------- | ------- | ------------------------------------- |
+| `/api/health`               | GET     | Health check                          |
+| `/api/session`              | POST    | Ouvrir une session (token signé)      |
+| `/api/scores?mode=...`      | GET     | Top scores par mode                   |
+| `/api/scores`               | POST    | Soumettre un score                    |
+| `/api/profile/:name`        | GET/PUT | Profil cloud (pokédex, achievements)  |
+
+Détails complets dans [`docs/API.md`](docs/API.md).
+
+## Documentation
+
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — vue d'ensemble technique, state machine, choix de design
+- [`docs/API.md`](docs/API.md) — référence complète de l'API HTTP
+- [`docs/GAME_DESIGN.md`](docs/GAME_DESIGN.md) — pourquoi ces mécaniques, pourquoi ces nombres
+- [`docs/EXTENSIONS.md`](docs/EXTENSIONS.md) — comment ajouter créatures, items, modes, sons
+- [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) — déploiement local, VPS, Docker, Render/Fly.io
+
+## Structure du projet
 
 ```
 safari-frenzy/
-├── server.js              ← API Express + serveur statique
+├── README.md
 ├── package.json
-├── data/
-│   └── scores.json        ← stockage JSON (auto-créé à la 1ʳᵉ partie)
+├── server.js
+├── data/                       # créé au runtime, gitignored
+├── docs/                       # 5 fichiers .md
+├── tests/run.js                # 18 tests d'intégration
 └── public/
     ├── index.html
-    ├── css/
-    │   └── style.css
+    ├── css/style.css
     └── js/
-        ├── sprites.js     ← pixel art + palette + renderer
-        ├── api.js         ← client fetch
-        └── game.js        ← state machine + game loop + canvas
+        ├── config.js           # modes, niveaux, achievements
+        ├── store.js            # localStorage + sync cloud
+        ├── audio.js            # Web Audio chiptune
+        ├── sprites.js          # pixel art + renderer canvas
+        ├── api.js              # client fetch
+        └── game.js             # state machine + game loop
 ```
 
----
+## Comment ça marche
 
-## 🛰 API
+Chaque créature est un sprite 14×14 (string array, palette indexée) dessiné via Canvas 2D. Le frontend est en pur JS sans bundler — chaque module IIFE expose un objet global (`window.SafariConfig`, `window.SafariAudio`...).
 
-Tout part de `server.js`. Stockage : un simple fichier JSON capé à 100 entrées (auto-tronqué au top scores).
+Le backend stocke les scores en SQLite (avec fallback JSON si le module natif ne compile pas). Anti-cheat via HMAC-SHA256 : à chaque début de partie le client demande un token signé, qu'il joint au score final. Le serveur vérifie signature, mode, et plausibilité (≤ 400 pts/sec).
 
-### `GET /api/scores?limit=10`
+L'audio est 100% procédural via Web Audio API — pas de fichiers, pas de bandwidth. SFX, jingles de level complete, et même la musique de fond (boucle pentatonique 16/32 pas) sont générés à la volée.
 
-```json
-{
-  "scores": [
-    { "id": "ab12cd", "name": "RED", "score": 1850, "combo": 12, "createdAt": "2026-05-01T18:30:00.000Z" }
-  ],
-  "total": 27
-}
-```
+Voir [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) pour les détails.
 
-### `POST /api/scores`
+## Licence
 
-```json
-{ "name": "RED", "score": 1850, "combo": 12 }
-```
-
-Réponse :
-
-```json
-{
-  "entry": { "id": "...", "name": "RED", "score": 1850, "combo": 12, "createdAt": "..." },
-  "rank": 3,
-  "isTop10": true
-}
-```
-
-Validation côté serveur : nom (12 chars max, sanitize control chars), score (entier 0–1 000 000), payload limité à 8 ko. Pas de DB requise, zéro coût.
-
-### `GET /api/health`
-
-Health check simple.
-
----
-
-## 🎨 Pixel art
-
-Tous les sprites sont définis comme des arrays de strings dans `public/js/sprites.js`. Chaque caractère mappe une couleur de la palette (ex. `g` = vert clair, `k` = noir, `.` = transparent). Le rendu se fait au canvas via `fillRect` pour chaque pixel — `image-rendering: pixelated` garantit le rendu chunky même en hi-DPI.
-
-Pour ajouter une créature :
-
-1. Dessine le sprite 14×14 dans `sprites.js`
-2. Ajoute-le au tableau `CREATURES` avec `points`, `weight` (probabilité de spawn), et `lifeMs` (durée à l'écran)
-
-Palette inspirée Pokémon Red/Blue (jaunes, rouges, verts, lilas) — les créatures sont **originales** pour rester safe niveau IP, mais l'esthétique est volontairement nostalgique.
-
----
-
-## 🔥 Pistes d'extension
-
-Quelques idées si tu veux enrichir :
-
-- **Modes de jeu** : Endless (vies au lieu d'un timer), Hardcore (un seul BOOMb = game over), Hunt (capturer une créature spécifique)
-- **Power-ups** : Maître Ball (capture garantie), Repousse (clear all BOOMb), Multiplicateur ×10 temporaire
-- **Persistance avancée** : remplacer le JSON par SQLite (`better-sqlite3`) — tu connais déjà MySQL, ça serait 10 minutes
-- **Auth** : JWT pour empêcher les soumissions de scores forgés (tu as l'expérience après Cycling)
-- **PvP async** : défier un score d'un autre joueur, partage de challenge par lien
-- **Audio** : bruitages 8-bit (Web Audio API) — chaque créature un son distinct, music chiptune en boucle
-
----
-
-## 📝 Notes techniques
-
-- **Validation côté serveur** : le score posté n'est **pas** vérifié contre la logique du jeu — un client malicieux peut forger un score. Pour un vrai déploiement public, ajouter un token de session côté serveur (issued au début de partie, signé avec timestamp et stats minimales).
-- **Concurrence** : `writeFile` n'est pas atomique. Acceptable pour un projet local/portfolio, à remplacer par SQLite ou `proper-lockfile` en prod.
-- **Mobile** : layout responsive < 760px, touch events via pointerdown.
+MIT — fais-en ce que tu veux.
