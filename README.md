@@ -10,15 +10,15 @@
 [![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## 🎮 Démo
+## 🎮 Jouer en ligne
 
-> ⚠️ **Le lien GitHub Pages actuel (`abdoulrazack1.github.io/safari-frenzy/`) sert ce README, pas le jeu** — `public/index.html` n'est pas à la racine du repo, et les paths du jeu sont absolus (`/css/...`).
->
-> **Pour jouer maintenant** : clone + `npm install && npm start` → `http://localhost:3000` (instructions ci-dessous).
->
-> **Pour rendre la démo en ligne fonctionnelle**, deux options :
-> 1. Déployer le tout sur **Render / Fly.io / VPS** (backend Express + SQLite + frontend) — voir [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)
-> 2. Réorganiser pour servir `public/` via GH Pages : changer les paths absolus en relatifs + ajouter un workflow `.github/workflows/pages.yml` qui upload `public/` comme artifact
+**→ [https://abdoulrazack1.github.io/safari-frenzy/](https://abdoulrazack1.github.io/safari-frenzy/)** ← le jeu est jouable directement dans le navigateur !
+
+[![Safari Frenzy — Title screen](public/screenshots/title.png)](https://abdoulrazack1.github.io/safari-frenzy/)
+
+![Safari Frenzy gameplay — Title → Level intro → GO](public/screenshots/gameplay.gif)
+
+> ⚠️ Le frontend est jouable sur GH Pages, mais **le leaderboard, les profils cloud et l'anti-cheat HMAC nécessitent le backend Express + SQLite**. Pour la version complète, clone + `npm install && npm start` → `http://localhost:3000` (instructions ci-dessous) ou déploie le backend sur Render/Fly.io ([`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)).
 
 <!-- 📽️ GIF de gameplay à ajouter ici : 15s
      1) capture d'une créature normale (+50)
