@@ -1,6 +1,23 @@
-# Safari Frenzy 🌿
+# 🎮 Safari Frenzy
 
-Mini browser game pixel art type Game Boy : capture les créatures à coups de Pokéball, évite les BOOMb, monte ton combo, débloque le pokédex.
+> **Mini browser game pixel-art type Game Boy** — capture les créatures à coups de Pokéball, évite les BOOMb, monte ton combo, débloque le pokédex.
+> 4 modes (Classique / Endless / Hardcore / Chasse), 8 niveaux + procédural infini, leaderboard anti-cheat, audio chiptune procédural (Web Audio API).
+
+[![Node](https://img.shields.io/badge/node-%E2%89%A518-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![Canvas](https://img.shields.io/badge/HTML5-Canvas-E34F26?logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
+[![Vanilla JS](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+<!-- 🚀 Jouer en ligne (à déployer GitHub Pages / Render / Fly.io) :
+     🎯 Jouer à Safari Frenzy → [DÉPLOIEMENT REQUIS — voir docs/DEPLOYMENT.md] -->
+
+<!-- 📽️ GIF de gameplay à ajouter ici : 15s
+     1) capture d'une créature normale (+50)
+     2) capture en combo ×3
+     3) BOOMb évité de justesse
+     4) bonus round avec légendaire -->
 
 **Stack** : HTML/CSS/JS vanilla + Node.js/Express + SQLite (avec fallback JSON). Zéro framework, zéro bundler, zéro dépendance dans le frontend.
 
